@@ -35,17 +35,17 @@ if (!is_null($events['events'])) {
                                     [
                                         "type" => "message",
                                         "label" => "สถานะเซิฟเวอร์",
-                                        "text" => "@online:25565"
+                                        "text" => "@status"
                                     ],
                                     [
                                         "type" => "message",
                                         "label" => "Broadcast",
-                                        "text" => "@online:1"
+                                        "text" => "@broadcast"
                                     ],
                                     [
                                         "type" => "message",
                                         "label" => "Command",
-                                        "text" => "@online:2"
+                                        "text" => "@command"
                                     ]
                                 ]
                               ],
@@ -58,17 +58,17 @@ if (!is_null($events['events'])) {
                                     [
                                         "type" => "message",
                                         "label" => "จำนวนผู้เล่น Online",
-                                        "text" => "@online:3"
+                                        "text" => "@online"
                                     ],
                                     [
                                         "type" => "message",
                                         "label" => "รายชื่อผู้เล่น Online",
-                                        "text" => "-"
+                                        "text" => "@list"
                                     ],
                                     [
                                         "type" => "message",
                                         "label" => "Ping Server",
-                                        "text" => "-"
+                                        "text" => "@ping"
                                     ]
                                 ]
                               ]
