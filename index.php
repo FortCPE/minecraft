@@ -183,17 +183,17 @@ if (!is_null($events['events'])) {
                                     [
                                         "type" => "message",
                                         "label" => "Lobby Server",
-                                        "text" => "@online:25565"
+                                        "text" => "@announce:server0:".$get_text[1]
                                     ],
                                     [
                                         "type" => "message",
                                         "label" => "Server 1 (Survival)",
-                                        "text" => "@online:1"
+                                        "text" => "@announce:server1:".$get_text[1]
                                     ],
                                     [
                                         "type" => "message",
                                         "label" => "Server 2 (Survival)",
-                                        "text" => "@online:2"
+                                        "text" => "@announce:server2:".$get_text[1]
                                     ]
                                 ]
                               ],
@@ -206,7 +206,7 @@ if (!is_null($events['events'])) {
                                     [
                                         "type" => "message",
                                         "label" => "Server 3 (MMO)",
-                                        "text" => "@online:3"
+                                        "text" => "@announce:server3:".$get_text[1]
                                     ],
                                     [
                                         "type" => "message",
@@ -226,6 +226,37 @@ if (!is_null($events['events'])) {
                       ]
                     ]
                 ];
+            }else if(strpos($text, '@announce')){
+                $data = array(
+                    'username' => 'tecadmin',
+                    'password' => '012345678'
+                );
+                 
+                $payload = json_encode($data);
+                 
+                // Prepare new cURL resource
+                $ch = curl_init('http://mc-wildforest.com/rcon/index.php');
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+                 
+                // Set HTTP Header for POST request 
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                    'Content-Type: application/json',
+                    'Content-Length: ' . strlen($payload))
+                );
+                 
+                // Submit the POST request
+                $result = curl_exec($ch);
+                $messages = [
+                    [
+                        'type' => 'text',
+                        'text' => '[System] '.$result
+                    ]
+                ];
+                // Close cURL session handle
+                curl_close($ch);
             }
 
             // Make a POST Request to Messaging API to reply to sender
@@ -252,3 +283,4 @@ if (!is_null($events['events'])) {
 }
 echo "OK";
 ?>
+
