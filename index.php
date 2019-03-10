@@ -18,32 +18,7 @@ if (!is_null($events['events'])) {
             // Get replyToken
             $replyToken = $event['replyToken'];
                 
-            if(strpos($text, 'สวัสดี') !== false || strpos($text, 'โย่') !== false || strpos($text, 'เห้') !== false){
-                if($userId == 'U72c641a79b2f1a785a7b362df99931ae'){
-                    $Display_Name = "โฟร์ท";
-                    $messages = [
-                        [
-                            'type' => 'text',
-                            'text' => 'สวัสดีครับ'.$Display_Name
-                        ],
-                        [
-                            'type' => 'text',
-                            'text' => 'มีอะไรให้รับใช้ครับ'
-                        ]
-                    ];
-                }else{
-                    $messages = [
-                        [
-                            'type' => 'text',
-                            'text' => 'สวัสดีครับ'
-                        ],
-                        [
-                            'type' => 'text',
-                            'text' => 'มีอะไรให้รับใช้ครับ'
-                        ]
-                    ];
-                }
-            }else if(strpos($text, 'เมนู') !== false){
+            if(strpos($text, 'เมนู') !== false){
                 $messages = [
                     [
                       "type" => "template",
@@ -60,17 +35,17 @@ if (!is_null($events['events'])) {
                                     [
                                         "type" => "message",
                                         "label" => "สถานะเซิฟเวอร์",
-                                        "text" => "ลงเวลาเรียน@09"
+                                        "text" => "@status"
                                     ],
                                     [
                                         "type" => "message",
-                                        "label" => "ส่งคำสั่ง",
-                                        "text" => "ลงเวลาเรียน@11"
+                                        "label" => "Broadcast ลงเซิฟเวอร์",
+                                        "text" => "@broadcast"
                                     ],
                                     [
                                         "type" => "message",
-                                        "label" => "จำนวนผู้เล่นขณะนี้",
-                                        "text" => "ลงเวลาเรียน@15"
+                                        "label" => "ส่ง Command ลงเซิฟเวอร์",
+                                        "text" => "@command"
                                     ]
                                 ]
                               ],
@@ -82,18 +57,18 @@ if (!is_null($events['events'])) {
                                 "actions" => [
                                     [
                                         "type" => "message",
-                                        "label" => "รายชื่อผู้เล่นขณะนี้",
-                                        "text" => "ลงเวลาเรียน@16"
+                                        "label" => "จำนวนผู้เล่นออนไลน์ ขณะนี้",
+                                        "text" => "@count"
                                     ],
                                     [
                                         "type" => "message",
-                                        "label" => "จัดการเว็บไซต์",
-                                        "text" => "ลงเวลาเรียน@18"
+                                        "label" => "รายชื่อผู้เล่นออนไลน์ ขณะนี้",
+                                        "text" => "@list"
                                     ],
                                     [
                                         "type" => "message",
-                                        "label" => "เวลา 19:30 น.",
-                                        "text" => "ลงเวลาเรียน@19"
+                                        "label" => "ค่า Ping เซิฟเวอร์",
+                                        "text" => "@ping"
                                     ]
                                 ]
                               ]
