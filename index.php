@@ -19,64 +19,15 @@ if (!is_null($events['events'])) {
             $replyToken = $event['replyToken'];
             
 
-            if(strpos($text, "เมนู") !== false){
+            if(strpos($text, 'สวัสดี') !== false || strpos($text, 'โย่') !== false){
                 $messages = [
                     [
-                          "type" => "template",
-                          "altText" => "this is a carousel template",
-                          "template" => [
-                              "type" => "carousel",
-                              "columns" => [
-                                  [
-                                    "thumbnailImageUrl" => "https://hanuman91.herokuapp.com/boxing.jpeg",
-                                    "imageBackgroundColor" => "#FFFFFF",
-                                    "title" => "จองเวลาเรียน",
-                                    "text" => "ช่วงเช้า-บ่าย",
-                                    "actions" => [
-                                        [
-                                            "type" => "message",
-                                            "label" => "เวลา 09:30 น.",
-                                            "text" => "ลงเวลาเรียน@09"
-                                        ],
-                                        [
-                                            "type" => "message",
-                                            "label" => "เวลา 11:00 น.",
-                                            "text" => "ลงเวลาเรียน@11"
-                                        ],
-                                        [
-                                            "type" => "message",
-                                            "label" => "เวลา 15:00 น.",
-                                            "text" => "ลงเวลาเรียน@15"
-                                        ]
-                                    ]
-                                  ],
-                                  [
-                                    "thumbnailImageUrl" => "https://hanuman91.herokuapp.com/boxing.jpeg",
-                                    "imageBackgroundColor" => "#000000",
-                                    "title" => "จองเวลาเรียน",
-                                    "text" => "ช่วงเย็น-ค่ำ",
-                                    "actions" => [
-                                        [
-                                            "type" => "message",
-                                            "label" => "เวลา 16:30 น.",
-                                            "text" => "ลงเวลาเรียน@16"
-                                        ],
-                                        [
-                                            "type" => "message",
-                                            "label" => "เวลา 18:00 น.",
-                                            "text" => "ลงเวลาเรียน@18"
-                                        ],
-                                        [
-                                            "type" => "message",
-                                            "label" => "เวลา 19:30 น.",
-                                            "text" => "ลงเวลาเรียน@19"
-                                        ]
-                                    ]
-                                  ]
-                              ],
-                              "imageAspectRatio" => "rectangle",
-                              "imageSize" => "cover"
-                          ]
+                        'type' => 'text',
+                        'text' => 'สวัสดีครับ'
+                    ],
+                    [
+                        'type' => 'text',
+                        'text' => 'มีอะไรให้รับใช้ครับ'
                     ]
                 ];
             }
