@@ -227,22 +227,16 @@ if (!is_null($events['events'])) {
                     ]
                 ];
             }else if(strpos($text, '@announce')){
-                $url = 'http://mc-wildforest.com/rcon/index.php';
-                $data = [
-                    'replyToken' => $replyToken,
-                    'messages' => [$messages][0],
+                $post = [
+                    'username' => 'user1',
+                    'password' => 'passuser1',
+                    'gender'   => 1,
                 ];
-                $post = json_encode($data);
-                $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-
-                $ch = curl_init($url);
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, 'http://mc-wildforest.com/rcon/index.php');
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-                $result = curl_exec($ch);
-                curl_close($ch);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
+                $response = curl_exec($ch);
             }
 
             // Make a POST Request to Messaging API to reply to sender
@@ -267,6 +261,6 @@ if (!is_null($events['events'])) {
         }
     }
 }
-echo "K";
+echo "OK";
 ?>
 
