@@ -228,7 +228,7 @@ if (!is_null($events['events'])) {
                 ];
             }else if(strpos($text, '@announce')){
                 $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, "http://mc-wildforest.com/rcon");
+                curl_setopt($ch, CURLOPT_URL, "https://mc-wildforest.com/rcon");
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
                 curl_setopt($ch, CURLOPT_POST, true);
 
