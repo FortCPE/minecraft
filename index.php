@@ -29,46 +29,46 @@ if (!is_null($events['events'])) {
                               [
                                 "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg3.png",
                                 "imageBackgroundColor" => "#FFFFFF",
-                                "title" => "ตัวเลือก",
+                                "title" => "เซิฟเวอร์ทั้งหมด",
                                 "text" => "กดเลือกได้เลยครับ",
                                 "actions" => [
                                     [
                                         "type" => "message",
-                                        "label" => "สถานะเซิฟเวอร์",
-                                        "text" => "@status"
+                                        "label" => "Lobby Server",
+                                        "text" => "@online:25565"
                                     ],
                                     [
                                         "type" => "message",
-                                        "label" => "วิธี Broadcast ลง Server",
-                                        "text" => "@broadcast"
+                                        "label" => "Server 1 (Survival)",
+                                        "text" => "@online:1"
                                     ],
                                     [
                                         "type" => "message",
-                                        "label" => "ส่ง Command ลง Server",
-                                        "text" => "@command"
+                                        "label" => "Server 2 (Survival)",
+                                        "text" => "@online:2"
                                     ]
                                 ]
                               ],
                               [
                                 "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg4.jpg",
                                 "imageBackgroundColor" => "#FFFFFF",
-                                "title" => "ตัวเลือก",
+                                "title" => "เซิฟเวอร์ทั้งหมด",
                                 "text" => "กดเลือกได้เลยครับ",
                                 "actions" => [
                                     [
                                         "type" => "message",
-                                        "label" => "จำนวนผู้เล่นออนไลน์ ขณะนี้",
-                                        "text" => "@online"
+                                        "label" => "Server 3 (MMO)",
+                                        "text" => "@online:3"
                                     ],
                                     [
                                         "type" => "message",
-                                        "label" => "รายชื่อผู้เล่นออนไลน์ ขณะนี้",
-                                        "text" => "@list"
+                                        "label" => "-",
+                                        "text" => "-"
                                     ],
                                     [
                                         "type" => "message",
-                                        "label" => "ค่า Ping Server",
-                                        "text" => "@ping"
+                                        "label" => "-",
+                                        "text" => "-"
                                     ]
                                 ]
                               ]
