@@ -176,17 +176,12 @@ if (!is_null($events['events'])) {
             }else if(strpos($text, 'say') !== false){
                 $get_server = explode(":", $text);
                 if($get_server[1] == "server1"){
-                    require_once 'https://mc-wildforest.herokuapp.com/system/src/Rcon.php';
-                    use Thedudeguy\Rcon;
-                    $host = 'mc-wildforest.com:1'; 
-                    $port = 25595; 
-                    $password = 'GMPOapomsqzakq503'; 
-                    $timeout = 3;                     
-                    $rcon = new Rcon($host, $port, $password, $timeout);
-                    if ($rcon->connect())
-                    {
-                      $rcon->sendCommand("broadcast ".$get_server[2]);
-                    }
+                    include_once("https://mc-wildforest.herokuapp.com/src/rcon.class.php");  
+                      
+                    $r = new rcon("mc-wildforest.com:1",25595,"GMPOapomsqzakq503");  
+                    $r->Auth();  
+                    //Send a request  
+                    $r->rconCommand("broadcast hello");  
                 }
             }
 
