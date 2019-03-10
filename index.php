@@ -27,7 +27,7 @@ if (!is_null($events['events'])) {
                           "type" => "carousel",
                           "columns" => [
                               [
-                                "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg1.jpg",
+                                "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg3.png",
                                 "imageBackgroundColor" => "#FFFFFF",
                                 "title" => "ตัวเลือก",
                                 "text" => "กดเลือกได้เลยครับ",
@@ -50,7 +50,7 @@ if (!is_null($events['events'])) {
                                 ]
                               ],
                               [
-                                "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg2.png",
+                                "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg4.jpg",
                                 "imageBackgroundColor" => "#FFFFFF",
                                 "title" => "ตัวเลือก",
                                 "text" => "กดเลือกได้เลยครับ",
