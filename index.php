@@ -95,7 +95,7 @@ if (!is_null($events['events'])) {
                                     [
                                         "type" => "message",
                                         "label" => "Lobby Server",
-                                        "text" => "@online:0"
+                                        "text" => "@online:25565"
                                     ],
                                     [
                                         "type" => "message",
