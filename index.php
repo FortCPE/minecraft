@@ -18,7 +18,7 @@ if (!is_null($events['events'])) {
             // Get replyToken
             $replyToken = $event['replyToken'];
                 
-            if(strpos($text, 'เมนู') !== false){
+            if(strpos($text, 'เมนู') !== false || strpos($text, 'เซิฟเวอร์') !== false){
                 $messages = [
                     [
                       "type" => "template",
@@ -69,6 +69,66 @@ if (!is_null($events['events'])) {
                                         "type" => "message",
                                         "label" => "ค่า Ping เซิฟเวอร์",
                                         "text" => "@ping"
+                                    ]
+                                ]
+                              ]
+                          ],
+                          "imageAspectRatio" => "rectangle",
+                          "imageSize" => "cover"
+                      ]
+                    ]
+                ];
+            }else if($text == "@status"){
+                $messages = [
+                    [
+                      "type" => "template",
+                      "altText" => "this is a carousel template",
+                      "template" => [
+                          "type" => "carousel",
+                          "columns" => [
+                              [
+                                "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg3.png",
+                                "imageBackgroundColor" => "#FFFFFF",
+                                "title" => "เซิฟเวอร์ทั้งหมด",
+                                "text" => "กดเลือกได้เลยครับ",
+                                "actions" => [
+                                    [
+                                        "type" => "message",
+                                        "label" => "Lobby Server",
+                                        "text" => "@status"
+                                    ],
+                                    [
+                                        "type" => "message",
+                                        "label" => "Server 1 (Survival)",
+                                        "text" => "@broadcast"
+                                    ],
+                                    [
+                                        "type" => "message",
+                                        "label" => "Server 2 (Survival)",
+                                        "text" => "@command"
+                                    ]
+                                ]
+                              ],
+                              [
+                                "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg4.jpg",
+                                "imageBackgroundColor" => "#FFFFFF",
+                                "title" => "เซิฟเวอร์ทั้งหมด",
+                                "text" => "กดเลือกได้เลยครับ",
+                                "actions" => [
+                                    [
+                                        "type" => "message",
+                                        "label" => "Server 3 (MMO)",
+                                        "text" => "@status"
+                                    ],
+                                    [
+                                        "type" => "message",
+                                        "label" => "-",
+                                        "text" => "-"
+                                    ],
+                                    [
+                                        "type" => "message",
+                                        "label" => "-",
+                                        "text" => "-"
                                     ]
                                 ]
                               ]
