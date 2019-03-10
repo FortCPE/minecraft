@@ -158,17 +158,74 @@ if (!is_null($events['events'])) {
                         ];
                     }
                 }
+            }else if($text == "@broadcast"){
+                $messages = [
+                    [
+                        'type' => 'text',
+                        'text' => '[System] พิมพ์ say:คำพูด '
+                    ]
+                ];
             }else if(strpos($text, 'say') !== false){
-                $get_server = explode(":", $text);
-                require_once 'https://mc-wildforest.herokuapp.com/system/src/rcon.class.php';
-                $host = 'mc-wildforest.com:1';
-                $port = '25595';
-                $password = 'GMPOapomsqzakq503';
-                $timeout = 30;
-                $rcon = new Rcon($host,$port,$password,$timeout);
-                if ($rcon->connect()) {
-                    $rcon->send_command("broadcast Hello");
-                }
+                $get_text = explode(":", $text);
+                $messages = [
+                    [
+                      "type" => "template",
+                      "altText" => "this is a carousel template",
+                      "template" => [
+                          "type" => "carousel",
+                          "columns" => [
+                              [
+                                "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg3.png",
+                                "imageBackgroundColor" => "#FFFFFF",
+                                "title" => "เลือกเซิฟเวอร์ที่ต้องการ Broadcast",
+                                "text" => "กดเลือกได้เลยครับ",
+                                "actions" => [
+                                    [
+                                        "type" => "message",
+                                        "label" => "Lobby Server",
+                                        "text" => "@online:25565"
+                                    ],
+                                    [
+                                        "type" => "message",
+                                        "label" => "Server 1 (Survival)",
+                                        "text" => "@online:1"
+                                    ],
+                                    [
+                                        "type" => "message",
+                                        "label" => "Server 2 (Survival)",
+                                        "text" => "@online:2"
+                                    ]
+                                ]
+                              ],
+                              [
+                                "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg4.jpg",
+                                "imageBackgroundColor" => "#FFFFFF",
+                                "title" => "เลือกเซิฟเวอร์ที่ต้องการ Broadcast",
+                                "text" => "กดเลือกได้เลยครับ",
+                                "actions" => [
+                                    [
+                                        "type" => "message",
+                                        "label" => "Server 3 (MMO)",
+                                        "text" => "@online:3"
+                                    ],
+                                    [
+                                        "type" => "message",
+                                        "label" => "-",
+                                        "text" => "-"
+                                    ],
+                                    [
+                                        "type" => "message",
+                                        "label" => "-",
+                                        "text" => "-"
+                                    ]
+                                ]
+                              ]
+                          ],
+                          "imageAspectRatio" => "rectangle",
+                          "imageSize" => "cover"
+                      ]
+                    ]
+                ];
             }
 
             // Make a POST Request to Messaging API to reply to sender
