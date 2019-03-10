@@ -39,12 +39,12 @@ if (!is_null($events['events'])) {
                                     ],
                                     [
                                         "type" => "message",
-                                        "label" => "Broadcast ลงเซิฟเวอร์",
+                                        "label" => "วิธี Broadcast ลงเซิฟเวอร์",
                                         "text" => "@broadcast"
                                     ],
                                     [
                                         "type" => "message",
-                                        "label" => "ส่ง Command ลงเซิฟเวอร์",
+                                        "label" => "วิธีส่ง Command ลงเซิฟเวอร์",
                                         "text" => "@command"
                                     ]
                                 ]
@@ -156,6 +156,36 @@ if (!is_null($events['events'])) {
                                 'text' => '[System] เซิฟเวอร์ Online ครับ'
                             ]
                         ];
+                    }
+                }
+            }else if($text == '@broadcast'){
+                $messages = [
+                    [
+                        'type' => 'text',
+                        'text' => 'b:เซิฟเวอร์ที่ต้องการ:ประโยคที่ต้องการประกาศ'
+                    ],
+                    [
+                        'type' => 'text',
+                        'text' => 'ตัวอย่าง'
+                    ],
+                    [
+                        'type' => 'text',
+                        'text' => 'b:server0:Hello Players'
+                    ]
+                ];
+            }else if(strpos($text, 'b') !== false){
+                $get_server = explode(":", $text);
+                if($get_server[1] == "server1"){
+                    require_once 'https://mc-wildforest.herokuapp.com/system/src/Rcon.php';
+                    $host = 'mc-wildforest.com:1'; 
+                    $port = 25595; 
+                    $password = 'GMPOapomsqzakq503'; 
+                    $timeout = 3;                     
+                    use Thedudeguy\Rcon;
+                    $rcon = new Rcon($host, $port, $password, $timeout);
+                    if ($rcon->connect())
+                    {
+                      $rcon->sendCommand("broadcast ".$get_server[2]);
                     }
                 }
             }
