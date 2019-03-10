@@ -256,7 +256,7 @@ if (!is_null($events['events'])) {
                 }
             }else if(strpos($text, 'say') !== false){
                 $get_server = explode(":", $text);
-                $host = 'mc-wildforest.com';
+                $host = 'mc-wildforest.com:1';
                 $port = '25595';
                 $password = 'GMPOapomsqzakq503';
                 $timeout = 30;
