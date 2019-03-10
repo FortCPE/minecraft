@@ -52,48 +52,38 @@ if (!is_null($events['events'])) {
                             "type" => "carousel",
                             "columns" => [
                                 [
-                                "thumbnailImageUrl" => "https://hanuman91.herokuapp.com/boxing.jpeg",
+                                "thumbnailImageUrl" => "images/bg1.jpg",
                                 "imageBackgroundColor" => "#FFFFFF",
-                                "title" => "จองเวลาเรียน",
-                                "text" => "ช่วงเช้า-บ่าย",
+                                "title" => "ตัวเลือก",
+                                "text" => "สามารถกดเลือกได้เลย",
                                 "actions" => [
                                 [
                                 "type" => "message",
-                                "label" => "เวลา 09:30 น.",
+                                "label" => "ส่งคำสั่ง",
                                 "text" => "ลงเวลาเรียน@09"
                                 ],
                                 [
                                 "type" => "message",
-                                "label" => "เวลา 11:00 น.",
+                                "label" => "สถานะเซิฟเวอร์",
                                 "text" => "ลงเวลาเรียน@11"
                                 ],
                                 [
                                 "type" => "message",
-                                "label" => "เวลา 15:00 น.",
+                                "label" => "เช็คจำนวนผู้เล่น",
                                 "text" => "ลงเวลาเรียน@15"
                                 ]
                             ]
                         ],
                             [
-                                "thumbnailImageUrl" => "https://hanuman91.herokuapp.com/boxing.jpeg",
+                                "thumbnailImageUrl" => "images/bg2.png",
                                 "imageBackgroundColor" => "#000000",
-                                "title" => "จองเวลาเรียน",
-                                "text" => "ช่วงเย็น-ค่ำ",
+                                "title" => "ตัวเลือก",
+                                "text" => "สามารถกดเลือกได้เลย",
                                 "actions" => [
                                     [
                                         "type" => "message",
-                                        "label" => "เวลา 16:30 น.",
+                                        "label" => "List ผู้เล่นทั้งหมด",
                                         "text" => "ลงเวลาเรียน@16"
-                                    ],
-                                    [
-                                        "type" => "message",
-                                        "label" => "เวลา 18:00 น.",
-                                        "text" => "ลงเวลาเรียน@18"
-                                    ],
-                                    [
-                                        "type" => "message",
-                                        "label" => "เวลา 19:30 น.",
-                                        "text" => "ลงเวลาเรียน@19"
                                     ]
                                 ]
                             ]
