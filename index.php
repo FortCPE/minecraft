@@ -227,10 +227,10 @@ if (!is_null($events['events'])) {
                     ]
                 ];
             }else if(strpos($text, '@announce') !== false){
+                $get_words = explode(":", $text);
                 $post = [
-                    'username' => 'user1',
-                    'password' => 'passuser1',
-                    'gender'   => 1,
+                    'server' => $get_words[1],
+                    'message' => $get_words[2]
                 ];
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, 'http://mc-wildforest.com/rcon/index.php');
