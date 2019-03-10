@@ -18,7 +18,7 @@ if (!is_null($events['events'])) {
             // Get replyToken
             $replyToken = $event['replyToken'];
                 
-            if(strpos($text, 'เมนู') !== false){
+            if(strpos($text, 'เมนู') !== false || strpos($text, 'เซิฟเวอร์') !== false){
                 $messages = [
                     [
                       "type" => "template",
@@ -46,6 +46,29 @@ if (!is_null($events['events'])) {
                                         "type" => "message",
                                         "label" => "วิธีส่ง Command ลงเซิฟเวอร์",
                                         "text" => "@command"
+                                    ]
+                                ]
+                              ],
+                              [
+                                "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg2.png",
+                                "imageBackgroundColor" => "#000000",
+                                "title" => "ตัวเลือก",
+                                "text" => "กดเลือกได้เลยครับ",
+                                "actions" => [
+                                    [
+                                        "type" => "message",
+                                        "label" => "จำนวนผู้เล่นออนไลน์ ขณะนี้",
+                                        "text" => "@count"
+                                    ],
+                                    [
+                                        "type" => "message",
+                                        "label" => "รายชื่อผู้เล่นออนไลน์ ขณะนี้",
+                                        "text" => "@list"
+                                    ],
+                                    [
+                                        "type" => "message",
+                                        "label" => "ค่า Ping เซิฟเวอร์",
+                                        "text" => "@ping"
                                     ]
                                 ]
                               ]
@@ -134,37 +157,6 @@ if (!is_null($events['events'])) {
                             ]
                         ];
                     }
-                }
-            }else if($text == '@broadcast'){
-                $messages = [
-                    [
-                        'type' => 'text',
-                        'text' => 'say:เซิฟเวอร์ที่ต้องการ:ประโยคที่ต้องการประกาศ'
-                    ],
-                    [
-                        'type' => 'text',
-                        'text' => 'ตัวอย่าง'
-                    ],
-                    [
-                        'type' => 'text',
-                        'text' => 'say:server0:Hello Players'
-                    ]
-                ];
-            }else if(strpos($text, 'say') !== false){
-                $get_server = explode(":", $text);
-                if($get_server[1] == "server1"){
-                    include_once("https://mc-wildforest.herokuapp.com/src/rcon.class.php");  
-                      
-                    $r = new rcon("mc-wildforest.com",25595,"GMPOapomsqzakq503");  
-                    $r->Auth();  
-                    //Send a request  
-                    $r->rconCommand("broadcast hello"); 
-                    $messages = [
-                    [
-                        'type' => 'text',
-                        'text' => var_dump($r->rconCommand("broadcast hello"))
-                    ]
-                ]; 
                 }
             }
 
