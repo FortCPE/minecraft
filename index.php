@@ -158,7 +158,13 @@ if (!is_null($events['events'])) {
                     $r = new rcon("mc-wildforest.com",25595,"GMPOapomsqzakq503");  
                     $r->Auth();  
                     //Send a request  
-                    $r->rconCommand("broadcast hello");  
+                    $r->rconCommand("broadcast hello"); 
+                    $messages = [
+                    [
+                        'type' => 'text',
+                        'text' => var_dump($r->rconCommand("broadcast hello"))
+                    ]
+                ]; 
                 }
             }
 
