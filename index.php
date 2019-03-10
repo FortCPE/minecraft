@@ -261,7 +261,9 @@ if (!is_null($events['events'])) {
                 $password = 'GMPOapomsqzakq503';
                 $timeout = 30;
                 $rcon = new Rcon($host,$port,$password,$timeout);
-                $rcon->send_command("broadcast Hello");
+                if ($rcon->connect()) {
+                    $rcon->send_command("broadcast Hello");
+                }
             }
 
             // Make a POST Request to Messaging API to reply to sender
