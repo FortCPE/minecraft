@@ -54,22 +54,22 @@ if (!is_null($events['events'])) {
                               [
                                 "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg1.jpg",
                                 "imageBackgroundColor" => "#FFFFFF",
-                                "title" => "จองเวลาเรียน",
-                                "text" => "ช่วงเช้า-บ่าย",
+                                "title" => "ตัวเลือก",
+                                "text" => "กดเลือกได้เลยครับ",
                                 "actions" => [
                                     [
                                         "type" => "message",
-                                        "label" => "เวลา 09:30 น.",
+                                        "label" => "สถานะเซิฟเวอร์",
                                         "text" => "ลงเวลาเรียน@09"
                                     ],
                                     [
                                         "type" => "message",
-                                        "label" => "เวลา 11:00 น.",
+                                        "label" => "ส่งคำสั่ง",
                                         "text" => "ลงเวลาเรียน@11"
                                     ],
                                     [
                                         "type" => "message",
-                                        "label" => "เวลา 15:00 น.",
+                                        "label" => "จำนวนผู้เล่นขณะนี้",
                                         "text" => "ลงเวลาเรียน@15"
                                     ]
                                 ]
@@ -77,23 +77,18 @@ if (!is_null($events['events'])) {
                               [
                                 "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg2.png",
                                 "imageBackgroundColor" => "#000000",
-                                "title" => "จองเวลาเรียน",
-                                "text" => "ช่วงเย็น-ค่ำ",
+                                "title" => "ตัวเลือก",
+                                "text" => "กดเลือกได้เลยครับ",
                                 "actions" => [
                                     [
                                         "type" => "message",
-                                        "label" => "เวลา 16:30 น.",
+                                        "label" => "รายชื่อผู้เล่นขณะนี้",
                                         "text" => "ลงเวลาเรียน@16"
                                     ],
                                     [
                                         "type" => "message",
-                                        "label" => "เวลา 18:00 น.",
+                                        "label" => "จัดการเว็บไซต์",
                                         "text" => "ลงเวลาเรียน@18"
-                                    ],
-                                    [
-                                        "type" => "message",
-                                        "label" => "เวลา 19:30 น.",
-                                        "text" => "ลงเวลาเรียน@19"
                                     ]
                                 ]
                               ]
