@@ -18,7 +18,7 @@ if (!is_null($events['events'])) {
             // Get replyToken
             $replyToken = $event['replyToken'];
                 
-            if(strpos($text, 'เมนู') !== false || strpos($text, 'เซิฟเวอร์') !== false){
+            if(strpos($text, 'เมนู') !== false){
                 $messages = [
                     [
                       "type" => "template",
@@ -39,26 +39,26 @@ if (!is_null($events['events'])) {
                                     ],
                                     [
                                         "type" => "message",
-                                        "label" => "วิธี Broadcast ลงเซิฟเวอร์",
+                                        "label" => "วิธี Broadcast ลง Server",
                                         "text" => "@broadcast"
                                     ],
                                     [
                                         "type" => "message",
-                                        "label" => "วิธีส่ง Command ลงเซิฟเวอร์",
+                                        "label" => "ส่ง Command ลง Server",
                                         "text" => "@command"
                                     ]
                                 ]
                               ],
                               [
                                 "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg2.png",
-                                "imageBackgroundColor" => "#000000",
+                                "imageBackgroundColor" => "#FFFFFF",
                                 "title" => "ตัวเลือก",
                                 "text" => "กดเลือกได้เลยครับ",
                                 "actions" => [
                                     [
                                         "type" => "message",
                                         "label" => "จำนวนผู้เล่นออนไลน์ ขณะนี้",
-                                        "text" => "@count"
+                                        "text" => "@online"
                                     ],
                                     [
                                         "type" => "message",
@@ -67,7 +67,7 @@ if (!is_null($events['events'])) {
                                     ],
                                     [
                                         "type" => "message",
-                                        "label" => "ค่า Ping เซิฟเวอร์",
+                                        "label" => "ค่า Ping Server",
                                         "text" => "@ping"
                                     ]
                                 ]
