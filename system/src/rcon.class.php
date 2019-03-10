@@ -1,118 +1,97 @@
-<?php
-/*
-	Basic CS:S Rcon class by Freman.  (V1.00)
-	----------------------------------------------
-	Ok, it's a completely working class now with with multi-packet responses
-
-	Contact: printf("%s%s%s%s%s%s%s%s%s%d%s%s%s","rc","on",chr(46),"cl","ass",chr(64),"pri","ya",chr(46),2,"y",chr(46),"net")
-
-	Behaviour I've noticed:
-		rcon is not returning the packet id.
-*/
-
-define("SERVERDATA_EXECCOMMAND",2);
-define("SERVERDATA_AUTH",3);
-
-class RCon {
-	var $Password;
-	var $Host;
-	var $Port = 27015;
-	var $_Sock = null;
-	var $_Id = 0;
-
-	function RCon ($Host,$Port,$Password) {
-		$this->Password = $Password;
-		$this->Host = $Host;
-		$this->Port = $Port;
-		$this->_Sock = @fsockopen($this->Host,$this->Port, $errno, $errstr, 30) or
-	    		die("Unable to open socket: $errstr ($errno)\n");
-		$this->_Set_Timeout($this->_Sock,2,500);
-    	}
-
-	function Auth () {
-		$PackID = $this->_Write(SERVERDATA_AUTH,$this->Password);
-
-		// Real response (id: -1 = failure)
-		$ret = $this->_PacketRead();
-		if ($ret[1]['id'] == -1) {
-			die("Authentication Failure\n");
-		}
-	}
-
-	function _Set_Timeout(&$res,$s,$m=0) {
-		if (version_compare(phpversion(),'4.3.0','<')) {
-			return socket_set_timeout($res,$s,$m);
-		}
-		return stream_set_timeout($res,$s,$m);
-	}
-
-	function _Write($cmd, $s1='', $s2='') {
-		// Get and increment the packet id
-		$id = ++$this->_Id;
-
-		// Put our packet together
-		$data = pack("VV",$id,$cmd).$s1.chr(0).$s2.chr(0);
-
-		// Prefix the packet size
-		$data = pack("V",strlen($data)).$data;
-
-		// Send packet
-		fwrite($this->_Sock,$data,strlen($data));
-
-		// In case we want it later we'll return the packet id
-		return $id;
-	}
-
-	function _PacketRead() {
-		//Declare the return array
-		$retarray = array();
-		//Fetch the packet size
-		while ($size = @fread($this->_Sock,4)) {
-			$size = unpack('V1Size',$size);
-			//Work around valve breaking the protocol
-			if ($size["Size"] > 4096) {
-				//pad with 8 nulls
-				$packet = "\x00\x00\x00\x00\x00\x00\x00\x00".fread($this->_Sock,4096);
-			} else {
-				//Read the packet back
-				$packet = fread($this->_Sock,$size["Size"]);
-			}
-			array_push($retarray,unpack("V1ID/V1Response/a*S1/a*S2",$packet));
-		}
-		return $retarray;
-	}
-
-	function Read() {
-		$Packets = $this->_PacketRead();
-
-		foreach($Packets as $pack) {
-			if (isset($ret[$pack['ID']])) {
-				$ret[$pack['ID']]['S1'] .= $pack['S1'];
-				$ret[$pack['ID']]['S2'] .= $pack['S1'];
-			} else {
-				$ret[$pack['ID']] = array(
-					'Response' => $pack['Response'],
-					'S1' => $pack['S1'],
-					'S2' =>	$pack['S2'],
-				);
-			}
-		}
-		return $ret;
-	}
-
-	function sendCommand($Command) {
-		$Command = '"'.trim(str_replace(' ','" "', $Command)).'"';
-		$this->_Write(SERVERDATA_EXECCOMMAND,$Command,'');
-	}
-
-	function rconCommand($Command) {
-		$this->sendcommand($Command);
-
-		$ret = $this->Read();
-
-		//ATM: Source servers don't return the request id, but if they fix this the code below should read as
-		// return $ret[$this->_Id]['S1'];
-		return $ret[0]['S1'];
-	}
+<?php 
+class Rcon {
+private $host;
+private $port;
+private $password;
+private $timeout;
+private $socket;
+private $authorized;
+private $last_response;
+const PACKET_AUTHORIZE = 5;
+const PACKET_COMMAND = 6;
+const SERVERDATA_AUTH = 3;
+const SERVERDATA_AUTH_RESPONSE = 2;
+const SERVERDATA_EXECCOMMAND = 2;
+const SERVERDATA_RESPONSE_VALUE = 0;
+public function __construct($host,$port,$password,$timeout)
+{
+$this->host = $host;
+$this->port = $port;
+$this->password = $password;
+$this->timeout = $timeout;
 }
-?>
+public function get_response() {
+return $this->last_response;
+}
+public function connect() {
+$this->socket = fsockopen($this->host,$this->port,$errno,$errstr,$this->timeout);
+if (!$this->socket)
+{
+$this->last_response = $errstr;
+return false;
+}
+stream_set_timeout($this->socket,3,0);
+$auth = $this->authorize();
+if ($auth) {
+return true;
+}
+return false;
+}
+public function disconnect()
+{
+if ($this->socket)
+{
+fclose($this->socket);
+}
+}
+public function is_connected() {
+return $this->authorized;
+}
+public function send_command($command)
+{
+if (!$this->is_connected()) return false;
+$this->write_packet(Rcon::PACKET_COMMAND,Rcon::SERVERDATA_EXECCOMMAND,$command);
+$response_packet = $this->read_packet();
+if ($response_packet['id'] == Rcon::PACKET_COMMAND)
+{
+if ($response_packet['type'] == Rcon::SERVERDATA_RESPONSE_VALUE)
+{
+$this->last_response = $response_packet['body'];
+return $response_packet['body'];
+}
+}
+return false;
+}
+private function authorize() {
+$this->write_packet(Rcon::PACKET_AUTHORIZE,Rcon::SERVERDATA_AUTH,$this->password);
+$response_packet = $this->read_packet();
+if ($response_packet['type'] == Rcon::SERVERDATA_AUTH_RESPONSE)
+{
+if ($response_packet['id'] == Rcon::PACKET_AUTHORIZE)
+{
+$this->authorized = true;
+return true;
+}
+}
+$this->disconnect();
+return false;
+}
+private function write_packet($packet_id,$packet_type,$packet_body)
+{
+$packet = pack("VV",$packet_id,$packet_type);
+$packet = $packet .$packet_body ."\x00";
+$packet = $packet ."\x00";
+$packet_size = strlen($packet);
+$packet = pack("V",$packet_size) .$packet;
+fwrite($this->socket,$packet,strlen($packet));
+}
+private function read_packet()
+{
+$size_data = fread($this->socket,4);
+$size_pack = unpack("V1size",$size_data);
+$size = $size_pack['size'];
+$packet_data = fread($this->socket,$size);
+$packet_pack = unpack("V1id/V1type/a*body",$packet_data);
+return $packet_pack;
+}
+}; ?>
