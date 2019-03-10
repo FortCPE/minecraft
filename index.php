@@ -1,5 +1,5 @@
 <?php
-$accessToken = "5xagYCkXxAmdrP4iQQUojiMKUzgrpkJpN5UpdFYbwSZdJHqJAcKEB7a8X++rfyDKWP7Mo3HTmE2wLnq+rQv5DdCLHISdBvWwmA6rmyDp66lsziSB/UVBpkhXnmgsZ8IB1b2NHyVEvaWcYaq8cnFD3QdB04t89/1O/w1cDnyilFU=";//copy Channel access token ตอนที่ตั้งค่ามาใส่
+$access_token = '5xagYCkXxAmdrP4iQQUojiMKUzgrpkJpN5UpdFYbwSZdJHqJAcKEB7a8X++rfyDKWP7Mo3HTmE2wLnq+rQv5DdCLHISdBvWwmA6rmyDp66lsziSB/UVBpkhXnmgsZ8IB1b2NHyVEvaWcYaq8cnFD3QdB04t89/1O/w1cDnyilFU=';
 // Get POST body content
 $content = file_get_contents('php://input');
 // Parse JSON
@@ -17,21 +17,33 @@ if (!is_null($events['events'])) {
             $userId = $event['source']['userId'];
             // Get replyToken
             $replyToken = $event['replyToken'];
-            
-
-            if(strpos($text, 'สวัสดี') !== false || strpos($text, 'โย่') !== false){
-                $messages = [
-                    [
-                        'type' => 'text',
-                        'text' => 'สวัสดีครับ'
-                    ],
-                    [
-                        'type' => 'text',
-                        'text' => 'มีอะไรให้รับใช้ครับ'
-                    ]
-                ];
+                
+            if(strpos($text, 'สวัสดี') !== false || strpos($text, 'โย่') !== false || strpos($text, 'เห้') !== false){
+                if($userId == 'U72c641a79b2f1a785a7b362df99931ae'){
+                    $Display_Name = "โฟร์ท";
+                    $messages = [
+                        [
+                            'type' => 'text',
+                            'text' => 'สวัสดีครับ'.$Display_Name
+                        ],
+                        [
+                            'type' => 'text',
+                            'text' => 'มีอะไรให้รับใช้ครับ'
+                        ]
+                    ];
+                }else{
+                    $messages = [
+                        [
+                            'type' => 'text',
+                            'text' => 'สวัสดีครับ'
+                        ],
+                        [
+                            'type' => 'text',
+                            'text' => 'มีอะไรให้รับใช้ครับ'
+                        ]
+                    ];
+                }
             }
-
 
             // Make a POST Request to Messaging API to reply to sender
             $url = 'https://api.line.me/v2/bot/message/reply';
@@ -41,6 +53,7 @@ if (!is_null($events['events'])) {
             ];
             $post = json_encode($data);
             $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -49,6 +62,7 @@ if (!is_null($events['events'])) {
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
             $result = curl_exec($ch);
             curl_close($ch);
+
             echo $result . "\r\n";
         }
     }
