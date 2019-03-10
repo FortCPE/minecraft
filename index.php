@@ -162,7 +162,7 @@ if (!is_null($events['events'])) {
                 $messages = [
                     [
                         'type' => 'text',
-                        'text' => 'b:เซิฟเวอร์ที่ต้องการ:ประโยคที่ต้องการประกาศ'
+                        'text' => 'say:เซิฟเวอร์ที่ต้องการ:ประโยคที่ต้องการประกาศ'
                     ],
                     [
                         'type' => 'text',
@@ -170,10 +170,10 @@ if (!is_null($events['events'])) {
                     ],
                     [
                         'type' => 'text',
-                        'text' => 'b:server0:Hello Players'
+                        'text' => 'say:server0:Hello Players'
                     ]
                 ];
-            }else if(strpos($text, 'b') !== false){
+            }else if(strpos($text, 'say') !== false){
                 $get_server = explode(":", $text);
                 if($get_server[1] == "server1"){
                     require_once 'https://mc-wildforest.herokuapp.com/system/src/Rcon.php';
@@ -181,7 +181,6 @@ if (!is_null($events['events'])) {
                     $port = 25595; 
                     $password = 'GMPOapomsqzakq503'; 
                     $timeout = 3;                     
-                    use Thedudeguy\Rcon;
                     $rcon = new Rcon($host, $port, $password, $timeout);
                     if ($rcon->connect())
                     {
