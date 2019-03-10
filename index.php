@@ -241,6 +241,12 @@ if (!is_null($events['events'])) {
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
                 $output = curl_exec($ch);
                 $info = curl_getinfo($ch);
+                $messages = [
+                    [
+                        'type' => 'text',
+                        'text' => $info
+                    ]
+                ];
                 curl_close($ch);
             }
 
