@@ -227,26 +227,21 @@ if (!is_null($events['events'])) {
                     ]
                 ];
             }else if(strpos($text, '@announce')){
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, "https://mc-wildforest.com/rcon");
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($ch, CURLOPT_POST, true);
-
-                $data = array(
-                    'foo' => 'foo foo foo',
-                    'bar' => 'bar bar bar',
-                    'baz' => 'baz baz baz'
-                );
-
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-                $output = curl_exec($ch);
-                $info = curl_getinfo($ch);
-                $messages = [
-                    [
-                        'type' => 'text',
-                        'text' => $info
-                    ]
+                $url = 'http://mc-wildforest.com/rcon/index.php';
+                $data = [
+                    'replyToken' => $replyToken,
+                    'messages' => [$messages][0],
                 ];
+                $post = json_encode($data);
+                $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+
+                $ch = curl_init($url);
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+                $result = curl_exec($ch);
                 curl_close($ch);
             }
 
@@ -272,6 +267,6 @@ if (!is_null($events['events'])) {
         }
     }
 }
-echo "OK";
+echo "K";
 ?>
 
