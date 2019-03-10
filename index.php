@@ -52,7 +52,7 @@ if (!is_null($events['events'])) {
                           "type" => "carousel",
                           "columns" => [
                               [
-                                "thumbnailImageUrl" => "images/bg1.jpg",
+                                "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg1.jpg",
                                 "imageBackgroundColor" => "#FFFFFF",
                                 "title" => "จองเวลาเรียน",
                                 "text" => "ช่วงเช้า-บ่าย",
@@ -75,7 +75,7 @@ if (!is_null($events['events'])) {
                                 ]
                               ],
                               [
-                                "thumbnailImageUrl" => "images/bg2.png",
+                                "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg2.png",
                                 "imageBackgroundColor" => "#000000",
                                 "title" => "จองเวลาเรียน",
                                 "text" => "ช่วงเย็น-ค่ำ",
