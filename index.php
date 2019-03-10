@@ -226,7 +226,7 @@ if (!is_null($events['events'])) {
                       ]
                     ]
                 ];
-            }else if(strpos($text, '@announce')){
+            }else if(strpos($text, '@announce') !== false){
                 $post = [
                     'username' => 'user1',
                     'password' => 'passuser1',
@@ -261,6 +261,6 @@ if (!is_null($events['events'])) {
         }
     }
 }
-echo "OK";
+echo "K";
 ?>
 
