@@ -227,35 +227,20 @@ if (!is_null($events['events'])) {
                     ]
                 ];
             }else if(strpos($text, '@announce')){
-                $data = array(
-                    'username' => 'tecadmin',
-                    'password' => '012345678'
-                );
-                 
-                $payload = json_encode($data);
-                 
-                // Prepare new cURL resource
-                $ch = curl_init('http://mc-wildforest.com/rcon/index.php');
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, "http://mc-wildforest.com/rcon");
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
                 curl_setopt($ch, CURLOPT_POST, true);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-                 
-                // Set HTTP Header for POST request 
-                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                    'Content-Type: application/json',
-                    'Content-Length: ' . strlen($payload))
+
+                $data = array(
+                    'foo' => 'foo foo foo',
+                    'bar' => 'bar bar bar',
+                    'baz' => 'baz baz baz'
                 );
-                 
-                // Submit the POST request
-                $result = curl_exec($ch);
-                $messages = [
-                    [
-                        'type' => 'text',
-                        'text' => '[System] '.$result
-                    ]
-                ];
-                // Close cURL session handle
+
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+                $output = curl_exec($ch);
+                $info = curl_getinfo($ch);
                 curl_close($ch);
             }
 
