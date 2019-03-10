@@ -27,47 +27,47 @@ if (!is_null($events['events'])) {
                           "type" => "carousel",
                           "columns" => [
                               [
-                                "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg3.png",
+                                "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg2.png",
                                 "imageBackgroundColor" => "#FFFFFF",
-                                "title" => "เซิฟเวอร์ทั้งหมด",
+                                "title" => "ตัวเลือกทั้งหมด",
                                 "text" => "กดเลือกได้เลยครับ",
                                 "actions" => [
                                     [
                                         "type" => "message",
-                                        "label" => "Lobby Server",
+                                        "label" => "สถานะเซิฟเวอร์",
                                         "text" => "@online:25565"
                                     ],
                                     [
                                         "type" => "message",
-                                        "label" => "Server 1 (Survival)",
+                                        "label" => "Broadcast",
                                         "text" => "@online:1"
                                     ],
                                     [
                                         "type" => "message",
-                                        "label" => "Server 2 (Survival)",
+                                        "label" => "Command",
                                         "text" => "@online:2"
                                     ]
                                 ]
                               ],
                               [
-                                "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg4.jpg",
+                                "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg1.jpg",
                                 "imageBackgroundColor" => "#FFFFFF",
-                                "title" => "เซิฟเวอร์ทั้งหมด",
+                                "title" => "ตัวเลือกทั้งหมด",
                                 "text" => "กดเลือกได้เลยครับ",
                                 "actions" => [
                                     [
                                         "type" => "message",
-                                        "label" => "Server 3 (MMO)",
+                                        "label" => "จำนวนผู้เล่น Online",
                                         "text" => "@online:3"
                                     ],
                                     [
                                         "type" => "message",
-                                        "label" => "-",
+                                        "label" => "รายชื่อผู้เล่น Online",
                                         "text" => "-"
                                     ],
                                     [
                                         "type" => "message",
-                                        "label" => "-",
+                                        "label" => "Ping Server",
                                         "text" => "-"
                                     ]
                                 ]
