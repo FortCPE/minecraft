@@ -19,7 +19,7 @@ if (!is_null($events['events'])) {
             $replyToken = $event['replyToken'];
             
 
-            if(strpos($text, "เมนู")){
+            if(strpos($text, "เมนู") !== false){
                 $messages = [
                     [
                           "type" => "template",
