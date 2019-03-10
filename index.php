@@ -95,17 +95,17 @@ if (!is_null($events['events'])) {
                                     [
                                         "type" => "message",
                                         "label" => "Lobby Server",
-                                        "text" => "@status"
+                                        "text" => "@online:0"
                                     ],
                                     [
                                         "type" => "message",
                                         "label" => "Server 1 (Survival)",
-                                        "text" => "@broadcast"
+                                        "text" => "@online:1"
                                     ],
                                     [
                                         "type" => "message",
                                         "label" => "Server 2 (Survival)",
-                                        "text" => "@command"
+                                        "text" => "@online:2"
                                     ]
                                 ]
                               ],
@@ -118,7 +118,7 @@ if (!is_null($events['events'])) {
                                     [
                                         "type" => "message",
                                         "label" => "Server 3 (MMO)",
-                                        "text" => "@status"
+                                        "text" => "@online:3"
                                     ],
                                     [
                                         "type" => "message",
@@ -138,6 +138,26 @@ if (!is_null($events['events'])) {
                       ]
                     ]
                 ];
+            }else if(strpos($text, '@online') !== false){
+                $get_server = explode(":", $text);
+                if($get_server[1] != null){
+                    $status = json_decode(file_get_contents('https://api.mcsrvstat.us/1/mc-wildforest.com:'.$get_server[1]));
+                    if($status->offline == true){
+                        $messages = [
+                            [
+                                'type' => 'text',
+                                'text' => '[System] เซิฟเวอร์ Offline ครับ'
+                            ]
+                        ];
+                    }else{
+                        $messages = [
+                            [
+                                'type' => 'text',
+                                'text' => '[System] เซิฟเวอร์ Online ครับ'
+                            ]
+                        ];
+                    }
+                }
             }
 
             // Make a POST Request to Messaging API to reply to sender
