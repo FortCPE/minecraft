@@ -1,34 +1,106 @@
 <?php
-    $accessToken = "5xagYCkXxAmdrP4iQQUojiMKUzgrpkJpN5UpdFYbwSZdJHqJAcKEB7a8X++rfyDKWP7Mo3HTmE2wLnq+rQv5DdCLHISdBvWwmA6rmyDp66lsziSB/UVBpkhXnmgsZ8IB1b2NHyVEvaWcYaq8cnFD3QdB04t89/1O/w1cDnyilFU=";//copy Channel access token ตอนที่ตั้งค่ามาใส่
-    
-    $content = file_get_contents('php://input');
-    $arrayJson = json_decode($content, true);
-    
-    $arrayHeader = array();
-    $arrayHeader[] = "Content-Type: application/json";
-    $arrayHeader[] = "Authorization: Bearer {$accessToken}";
-    
-    //รับข้อความจากผู้ใช้
-    $message = $arrayJson['events'][0]['message']['text'];
-#ตัวอย่าง Message Type "Text"
-    if(strpos($message, "สวัสดี") !== false){
-        $arrayPostData['replyToken'] = $arrayJson['events'][0]['replyToken'];
-        $arrayPostData['messages'][0]['type'] = "text";
-        $arrayPostData['messages'][0]['text'] = "สวัสดีจ้าาา";
-        replyMsg($arrayHeader,$arrayPostData);
+$accessToken = "5xagYCkXxAmdrP4iQQUojiMKUzgrpkJpN5UpdFYbwSZdJHqJAcKEB7a8X++rfyDKWP7Mo3HTmE2wLnq+rQv5DdCLHISdBvWwmA6rmyDp66lsziSB/UVBpkhXnmgsZ8IB1b2NHyVEvaWcYaq8cnFD3QdB04t89/1O/w1cDnyilFU=";//copy Channel access token ตอนที่ตั้งค่ามาใส่
+// Get POST body content
+$content = file_get_contents('php://input');
+// Parse JSON
+$events = json_decode($content, true);
+if (!is_null($events['events'])) {
+    // Loop through each event
+    foreach ($events['events'] as $event) {
+        // Reply only when message sent is in 'text' format
+        if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
+            // Get text sent
+            $text = $event['message']['text'];              
+            //Get Group ID
+            $groupId = $event['source']['groupId'];
+            //Get User ID
+            $userId = $event['source']['userId'];
+            // Get replyToken
+            $replyToken = $event['replyToken'];
+            
+
+            if(strpos($text, "เมนู")){
+                $messages = [
+                    [
+                          "type" => "template",
+                          "altText" => "this is a carousel template",
+                          "template" => [
+                              "type" => "carousel",
+                              "columns" => [
+                                  [
+                                    "thumbnailImageUrl" => "https://hanuman91.herokuapp.com/boxing.jpeg",
+                                    "imageBackgroundColor" => "#FFFFFF",
+                                    "title" => "จองเวลาเรียน",
+                                    "text" => "ช่วงเช้า-บ่าย",
+                                    "actions" => [
+                                        [
+                                            "type" => "message",
+                                            "label" => "เวลา 09:30 น.",
+                                            "text" => "ลงเวลาเรียน@09"
+                                        ],
+                                        [
+                                            "type" => "message",
+                                            "label" => "เวลา 11:00 น.",
+                                            "text" => "ลงเวลาเรียน@11"
+                                        ],
+                                        [
+                                            "type" => "message",
+                                            "label" => "เวลา 15:00 น.",
+                                            "text" => "ลงเวลาเรียน@15"
+                                        ]
+                                    ]
+                                  ],
+                                  [
+                                    "thumbnailImageUrl" => "https://hanuman91.herokuapp.com/boxing.jpeg",
+                                    "imageBackgroundColor" => "#000000",
+                                    "title" => "จองเวลาเรียน",
+                                    "text" => "ช่วงเย็น-ค่ำ",
+                                    "actions" => [
+                                        [
+                                            "type" => "message",
+                                            "label" => "เวลา 16:30 น.",
+                                            "text" => "ลงเวลาเรียน@16"
+                                        ],
+                                        [
+                                            "type" => "message",
+                                            "label" => "เวลา 18:00 น.",
+                                            "text" => "ลงเวลาเรียน@18"
+                                        ],
+                                        [
+                                            "type" => "message",
+                                            "label" => "เวลา 19:30 น.",
+                                            "text" => "ลงเวลาเรียน@19"
+                                        ]
+                                    ]
+                                  ]
+                              ],
+                              "imageAspectRatio" => "rectangle",
+                              "imageSize" => "cover"
+                          ]
+                    ]
+                ];
+            }
+
+
+            // Make a POST Request to Messaging API to reply to sender
+            $url = 'https://api.line.me/v2/bot/message/reply';
+            $data = [
+                'replyToken' => $replyToken,
+                'messages' => [$messages][0],
+            ];
+            $post = json_encode($data);
+            $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+            $result = curl_exec($ch);
+            curl_close($ch);
+            echo $result . "\r\n";
+        }
     }
-function replyMsg($arrayHeader,$arrayPostData){
-        $strUrl = "https://api.line.me/v2/bot/message/reply";
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL,$strUrl);
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $arrayHeader);    
-        curl_setopt($ch, CURLOPT_POSTFIELDS,json_encode($arrayPostData));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        $result = curl_exec($ch);
-        curl_close ($ch);
-    }
-   exit;
+}
+echo "OK";
 ?>
