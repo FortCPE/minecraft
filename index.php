@@ -89,6 +89,11 @@ if (!is_null($events['events'])) {
                                         "type" => "message",
                                         "label" => "จัดการเว็บไซต์",
                                         "text" => "ลงเวลาเรียน@18"
+                                    ],
+                                    [
+                                        "type" => "message",
+                                        "label" => "เวลา 19:30 น.",
+                                        "text" => "ลงเวลาเรียน@19"
                                     ]
                                 ]
                               ]
