@@ -402,21 +402,13 @@ if (!is_null($events['events'])) {
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
                 $response = curl_exec($ch);
-                if($response == "success"){
-                    $messages = [
-                        [
-                            'type' => 'text',
-                            'text' => '[System] ส่งคำสั่งแล้วครับ'
-                        ]
-                    ];
-                }else{
-                    $messages = [
-                        [
-                            'type' => 'text',
-                            'text' => '[System] Server Offline'
-                        ]
-                    ];
-                }
+                $messages = [
+                    [
+                        'type' => 'text',
+                        'text' => '[System] ส่งคำสั่งแล้วครับ'
+                    ]
+                ];
+            
             }else if($text == "@broadcast"){
                 $messages = [
                     [
