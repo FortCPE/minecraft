@@ -159,7 +159,11 @@ if (!is_null($events['events'])) {
                         $messages = [
                             [
                                 'type' => 'text',
-                                'text' => '[System] ผู้เล่นทั้งหมด '.$status->players->online.' / '.$status->players->max.' คน'
+                                'text' => '[System] ผู้เล่นทั้งหมด'
+                            ],
+                            [
+                                'type' => 'text',
+                                'text' => $status->players->online.' / '.$status->players->max.' คน'
                             ]
                         ];
                     }
