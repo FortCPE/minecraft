@@ -45,7 +45,7 @@ if (!is_null($events['events'])) {
                                     [
                                         "type" => "message",
                                         "label" => "Command",
-                                        "text" => "@command"
+                                        "text" => "@cmm"
                                     ]
                                 ]
                               ],
@@ -158,6 +158,78 @@ if (!is_null($events['events'])) {
                         ];
                     }
                 }
+            }else if($text == "@cmm"){
+                $messages = [
+                    [
+                        'type' => 'text',
+                        'text' => '[System] พิมพ์ command:คำสั่ง '
+                    ],
+                    [
+                        'type' => 'text',
+                        'text' => 'เช่น command:give <player> 16 1'
+                    ],
+                    [
+                        'type' => 'text',
+                        'text' => 'แทนชื่อผู้เล่นใน player เช่น command:give notch 16 1'
+                    ]
+                ];
+            }else if(strpos($text, 'command') !== false){
+                $get_text = explode(":", $text);
+                $messages = [
+                    [
+                      "type" => "template",
+                      "altText" => "this is a carousel template",
+                      "template" => [
+                          "type" => "carousel",
+                          "columns" => [
+                              [
+                                "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg4.jpg",
+                                "imageBackgroundColor" => "#FFFFFF",
+                                "title" => "เลือกเซิฟเวอร์ที่ต้องการส่งคำสั่ง",
+                                "text" => "กดเลือกได้เลยครับ",
+                                "actions" => [
+                                    [
+                                        "type" => "message",
+                                        "label" => "Server 1 (Survival)",
+                                        "text" => "@send:server1:".$get_text[1]
+                                    ],
+                                    [
+                                        "type" => "message",
+                                        "label" => "Server 2 (Survival)",
+                                        "text" => "@send:server2:".$get_text[1]
+                                    ],
+                                    [
+                                        "type" => "message",
+                                        "label" => "-",
+                                        "text" => "-"
+                                    ]
+                                ]
+                              ]
+                          ],
+                          "imageAspectRatio" => "rectangle",
+                          "imageSize" => "cover"
+                      ]
+                    ]
+                ];
+            }else if(strpos($text, '@send') !== false){
+                $get_words = explode(":", $text);
+                $post = [
+                    'server' => $get_words[1],
+                    'command' => $get_words[2]
+                ];
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, 'http://mc-wildforest.com/rcon/index.php');
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
+                $response = curl_exec($ch);
+                if($response == "success"){
+                    $messages = [
+                        [
+                            'type' => 'text',
+                            'text' => '[System] ส่งคำสั่งแล้วครับ'
+                        ]
+                    ];
+                }
             }else if($text == "@broadcast"){
                 $messages = [
                     [
@@ -182,11 +254,6 @@ if (!is_null($events['events'])) {
                                 "actions" => [
                                     [
                                         "type" => "message",
-                                        "label" => "Lobby Server",
-                                        "text" => "@announce:server0:".$get_text[1]
-                                    ],
-                                    [
-                                        "type" => "message",
                                         "label" => "Server 1 (Survival)",
                                         "text" => "@announce:server1:".$get_text[1]
                                     ],
@@ -194,24 +261,6 @@ if (!is_null($events['events'])) {
                                         "type" => "message",
                                         "label" => "Server 2 (Survival)",
                                         "text" => "@announce:server2:".$get_text[1]
-                                    ]
-                                ]
-                              ],
-                              [
-                                "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg4.jpg",
-                                "imageBackgroundColor" => "#FFFFFF",
-                                "title" => "เลือกเซิฟเวอร์ที่ต้องการ Broadcast",
-                                "text" => "กดเลือกได้เลยครับ",
-                                "actions" => [
-                                    [
-                                        "type" => "message",
-                                        "label" => "Server 3 (MMO)",
-                                        "text" => "@announce:server3:".$get_text[1]
-                                    ],
-                                    [
-                                        "type" => "message",
-                                        "label" => "-",
-                                        "text" => "-"
                                     ],
                                     [
                                         "type" => "message",
