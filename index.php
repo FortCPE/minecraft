@@ -67,8 +67,8 @@ if (!is_null($events['events'])) {
                                     ],
                                     [
                                         "type" => "message",
-                                        "label" => "Ping Server",
-                                        "text" => "@ping"
+                                        "label" => "-",
+                                        "text" => "-"
                                     ]
                                 ]
                               ]
