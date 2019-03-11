@@ -211,7 +211,7 @@ if (!is_null($events['events'])) {
                         ];
                     }else{
                         $all_players = "";
-                        $count = 1;
+                        $count = 0;
                         for ($i=0; $i < count($status->players->list); $i++) { 
                             $count++;
                             $all_players .= $count.") ".$status->players->list[$i]."\n";
