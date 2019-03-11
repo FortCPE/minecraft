@@ -58,7 +58,7 @@ if (!is_null($events['events'])) {
                                     [
                                         "type" => "message",
                                         "label" => "จำนวนผู้เล่น Online",
-                                        "text" => "@online"
+                                        "text" => "@amount"
                                     ],
                                     [
                                         "type" => "message",
@@ -78,6 +78,92 @@ if (!is_null($events['events'])) {
                       ]
                     ]
                 ];
+            }else if($text == "@amount"){
+                $messages = [
+                    [
+                      "type" => "template",
+                      "altText" => "this is a carousel template",
+                      "template" => [
+                          "type" => "carousel",
+                          "columns" => [
+                              [
+                                "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg3.png",
+                                "imageBackgroundColor" => "#FFFFFF",
+                                "title" => "เซิฟเวอร์ทั้งหมด",
+                                "text" => "กดเลือกได้เลยครับ",
+                                "actions" => [
+                                    [
+                                        "type" => "message",
+                                        "label" => "Lobby Server",
+                                        "text" => "@count:25565"
+                                    ],
+                                    [
+                                        "type" => "message",
+                                        "label" => "Server 1 (Survival)",
+                                        "text" => "@count:1"
+                                    ],
+                                    [
+                                        "type" => "message",
+                                        "label" => "Server 2 (Survival)",
+                                        "text" => "@count:2"
+                                    ]
+                                ]
+                              ],
+                              [
+                                "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg4.jpg",
+                                "imageBackgroundColor" => "#FFFFFF",
+                                "title" => "เซิฟเวอร์ทั้งหมด",
+                                "text" => "กดเลือกได้เลยครับ",
+                                "actions" => [
+                                    [
+                                        "type" => "message",
+                                        "label" => "Server 3 (MMO)",
+                                        "text" => "@count:3"
+                                    ],
+                                    [
+                                        "type" => "message",
+                                        "label" => "-",
+                                        "text" => "-"
+                                    ],
+                                    [
+                                        "type" => "message",
+                                        "label" => "-",
+                                        "text" => "-"
+                                    ]
+                                ]
+                              ]
+                          ],
+                          "imageAspectRatio" => "rectangle",
+                          "imageSize" => "cover"
+                      ]
+                    ]
+                ];
+            }else if(strpos($text, "@count") !== false){
+                $get_server = explode(":", $text);
+                if($get_server[1] != null){
+                    $status = json_decode(file_get_contents('https://api.mcsrvstat.us/1/mc-wildforest.com:'.$get_server[1]));
+                    if($status->offline == true){
+                        $messages = [
+                            [
+                                'type' => 'text',
+                                'text' => '[System] เซิฟเวอร์ Offline ครับ'
+                            ]
+                        ];
+                    }else{
+                        $all_players = "";
+                        $count = 0;
+                        for ($i=0; $i < count($status->players->list); $i++) { 
+                            $count++;
+                            $all_players .= $count.") ".$status->players->list[$i]."\n";
+                        }
+                        $messages = [
+                            [
+                                'type' => 'text',
+                                'text' => '[System] ผู้เล่นทั้งหมด '.$status->players->online.' / '.$status->players->max.' คน'
+                            ]
+                        ];
+                    }
+                }
             }else if($text == "@status"){
                 $messages = [
                     [
