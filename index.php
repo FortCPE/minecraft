@@ -219,7 +219,7 @@ if (!is_null($events['events'])) {
                         $messages = [
                             [
                                 'type' => 'text',
-                                'text' => '[System] ผู้เล่นทั้งหมด'
+                                'text' => '[System] ผู้เล่นทั้งหมด '.$status->players->online.' คน'
                             ],
                             [
                                 'type' => 'text',
