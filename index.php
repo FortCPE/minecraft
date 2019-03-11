@@ -138,6 +138,94 @@ if (!is_null($events['events'])) {
                       ]
                     ]
                 ];
+            }else if($text == "@list"){
+                $messages = [
+                    [
+                      "type" => "template",
+                      "altText" => "this is a carousel template",
+                      "template" => [
+                          "type" => "carousel",
+                          "columns" => [
+                              [
+                                "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg3.png",
+                                "imageBackgroundColor" => "#FFFFFF",
+                                "title" => "เซิฟเวอร์ทั้งหมด",
+                                "text" => "กดเลือกได้เลยครับ",
+                                "actions" => [
+                                    [
+                                        "type" => "message",
+                                        "label" => "Lobby Server",
+                                        "text" => "@who:25565"
+                                    ],
+                                    [
+                                        "type" => "message",
+                                        "label" => "Server 1 (Survival)",
+                                        "text" => "@who:1"
+                                    ],
+                                    [
+                                        "type" => "message",
+                                        "label" => "Server 2 (Survival)",
+                                        "text" => "@who:2"
+                                    ]
+                                ]
+                              ],
+                              [
+                                "thumbnailImageUrl" => "https://mc-wildforest.herokuapp.com/images/bg4.jpg",
+                                "imageBackgroundColor" => "#FFFFFF",
+                                "title" => "เซิฟเวอร์ทั้งหมด",
+                                "text" => "กดเลือกได้เลยครับ",
+                                "actions" => [
+                                    [
+                                        "type" => "message",
+                                        "label" => "Server 3 (MMO)",
+                                        "text" => "@who:3"
+                                    ],
+                                    [
+                                        "type" => "message",
+                                        "label" => "-",
+                                        "text" => "-"
+                                    ],
+                                    [
+                                        "type" => "message",
+                                        "label" => "-",
+                                        "text" => "-"
+                                    ]
+                                ]
+                              ]
+                          ],
+                          "imageAspectRatio" => "rectangle",
+                          "imageSize" => "cover"
+                      ]
+                    ]
+                ];
+            }else if(strpos($text, '@who') !== false){
+                $get_server = explode(":", $text);
+                if($get_server[1] != null){
+                    $status = json_decode(file_get_contents('https://api.mcsrvstat.us/1/mc-wildforest.com:'.$get_server[1]));
+                    if($status->offline == true){
+                        $messages = [
+                            [
+                                'type' => 'text',
+                                'text' => '[System] เซิฟเวอร์ Offline ครับ'
+                            ]
+                        ];
+                    }else{
+                        $all_players = "";
+                        for ($i=0; $i < count($status->players->list); $i++) { 
+                            $all_players .= $status->players->list[$i]." ";
+                        }
+                        $messages = [
+                            [
+                                'type' => 'text',
+                                'text' => '[System] ผู้เล่นทั้งหมด'
+                            ],
+                            [
+                                'type' => 'text',
+                                'text' => $all_players
+                            ]
+                        ];
+                    }
+                }
             }else if(strpos($text, '@online') !== false){
                 $get_server = explode(":", $text);
                 if($get_server[1] != null){
