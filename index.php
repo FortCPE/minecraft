@@ -480,6 +480,13 @@ if (!is_null($events['events'])) {
                         ]
                     ];
                 }
+            }else if(isset($_POST)){
+                $messages = [
+                    [
+                        'type' => 'text',
+                        'text' => '[System] Test'
+                    ]
+                ];
             }
 
             // Make a POST Request to Messaging API to reply to sender
