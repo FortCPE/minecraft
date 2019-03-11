@@ -237,6 +237,12 @@ if (!is_null($events['events'])) {
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
                 $response = curl_exec($ch);
+                $messages = [
+                    [
+                        'type' => 'text',
+                        'text' => '[System] '.$response
+                    ]
+                ];
             }
 
             // Make a POST Request to Messaging API to reply to sender
