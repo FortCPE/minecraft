@@ -1,6 +1,40 @@
 <?php
 $access_token = '5xagYCkXxAmdrP4iQQUojiMKUzgrpkJpN5UpdFYbwSZdJHqJAcKEB7a8X++rfyDKWP7Mo3HTmE2wLnq+rQv5DdCLHISdBvWwmA6rmyDp66lsziSB/UVBpkhXnmgsZ8IB1b2NHyVEvaWcYaq8cnFD3QdB04t89/1O/w1cDnyilFU=';
 // Get POST body content
+if(isset($_POST)){
+    $content = file_get_contents('php://input');
+   $arrayJson = json_decode($content, true);
+   $arrayHeader = array();
+   $arrayHeader[] = "Content-Type: application/json";
+   $arrayHeader[] = "Authorization: Bearer {$accessToken}";
+   //รับข้อความจากผู้ใช้
+   $message = $arrayJson['events'][0]['message']['text'];
+   //รับ id ของผู้ใช้
+   $id = ["U72c641a79b2f1a785a7b362df99931ae","U48354b8b07d4977710684b8b07d2838c"];
+   #ตัวอย่าง Message Type "Text + Sticker"
+   $arrayPostData['to'] = $id;
+   if(isset($_POST)){
+    $arrayPostData['messages'][0]['type'] = "text";
+    $arrayPostData['messages'][0]['text'] = "Hello";
+   }
+   pushMsg($arrayHeader,$arrayPostData);
+  
+   function pushMsg($arrayHeader,$arrayPostData){
+      $strUrl = "https://api.line.me/v2/bot/message/multicast";
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL,$strUrl);
+      curl_setopt($ch, CURLOPT_HEADER, false);
+      curl_setopt($ch, CURLOPT_POST, true);
+      curl_setopt($ch, CURLOPT_HTTPHEADER, $arrayHeader);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($arrayPostData));
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
+      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+      $result = curl_exec($ch);
+      curl_close ($ch);
+   }
+   exit;  
+}else{
+
 $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
@@ -480,13 +514,6 @@ if (!is_null($events['events'])) {
                         ]
                     ];
                 }
-            }else if(isset($_POST)){
-                $messages = [
-                    [
-                        'type' => 'text',
-                        'text' => '[System] Test'
-                    ]
-                ];
             }
 
             // Make a POST Request to Messaging API to reply to sender
@@ -512,5 +539,6 @@ if (!is_null($events['events'])) {
     }
 }
 echo "K";
+}
 ?>
 
